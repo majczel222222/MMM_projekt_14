@@ -1,4 +1,4 @@
-﻿Build started 17.03.2016 00:00:59.
+﻿Build started 17.03.2016 00:26:07.
      1>Project "H:\Documents\Polibuda\Drugi rok\IV\Metody Modelowania Matematycznego (Wuch)\Projekt_MMM_Kozłowski_14\MMM_projekt_14\draw\draw.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          H:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\draw2.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt draw2.cpp
@@ -19,4 +19,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.66
+Time Elapsed 00:00:00.60

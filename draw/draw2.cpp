@@ -213,15 +213,13 @@ void MyOnPaint(HDC hdc)
 	}
 
 
-
-
 	graphics.DrawString(L"Sygnał wejściowy: ", -1, &text, PointF(900, 80), &text2);
 
-	graphics.DrawString(L"A : ", -1, &text, PointF(900, 180), &text2);
+	graphics.DrawString(L"A= ", -1, &text, PointF(900, 180), &text2);
 
-	graphics.DrawString(L"a: ", -1, &text, PointF(900, 280), &text2);
+	graphics.DrawString(L"a= ", -1, &text, PointF(900, 280), &text2);
 
-	graphics.DrawString(L"T: ", -1, &text, PointF(900, 380), &text2);
+	graphics.DrawString(L"T= ", -1, &text, PointF(900, 380), &text2);
 
 	graphics.DrawString(L"Sygnał wejściowy: ", -1, &text, PointF(20, 0), &text2);
 
@@ -356,18 +354,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Sin"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 40, 70, 40, hWnd, (HMENU)ID_BUTTON_Podzialka_plus, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Prostokat"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 80, 70, 40, hWnd, (HMENU)ID_BUTTON_Podzialka_minus, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Trojkat"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 120, 70, 40, hWnd, (HMENU)ID_BUTTON_Podzialka_minus, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Sin"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 40, 70, 40, hWnd, (HMENU)ID_BUTTON_in_sin, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Prostokat"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 80, 70, 40, hWnd, (HMENU)ID_BUTTON_in_sqr, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Trojkat"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 120, 70, 40, hWnd, (HMENU)ID_BUTTON_in_trg, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 160, 70, 40, hWnd, (HMENU)ID_BUTTON_Amplituda_plus , hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 200, 70, 40, hWnd, (HMENU)ID_BUTTON_Amplituda_minus , hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 160, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_A_inc, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 200, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_A_dec, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 260, 70, 40, hWnd, (HMENU)ID_BUTTON_Os_x_wlacz, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 300, 70, 40, hWnd, (HMENU)ID_BUTTON_Os_x_wylacz, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 260, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_a_inc, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 300, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_a_dec, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 360, 70, 40, hWnd, (HMENU)ID_BUTTON_Os_y_wlacz, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 400, 70, 40, hWnd, (HMENU)ID_BUTTON_Os_y_wylacz, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 360, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_T_inc, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 400, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_T_dec, hInstance, NULL);
 
 	OnCreate(hWnd);
 
@@ -414,41 +412,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
-		case ID_BUTTON_Podzialka_plus:
+		case ID_BUTTON_in_sin:
 			if (skalax >= 2) skalax--; else skalax = 1; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Podzialka_minus:
+		case ID_BUTTON_in_sqr:
 			skalax++; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Amplituda_plus:
+		case ID_BUTTON_in_trg:
 			if (skalay >= 2) skalay--; else skalay = 1;  repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Amplituda_minus:
+		case ID_BUTTON_Param_A_inc:
 			skalay++; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Os_x_wlacz:
+		case ID_BUTTON_Param_A_dec:
 			rysuja_x = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Os_x_wylacz:
+		case ID_BUTTON_Param_a_inc:
 			rysuja_x = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Os_y_wlacz:
+		case ID_BUTTON_Param_a_dec:
 			rysuja_y = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Os_y_wylacz:
+		case ID_BUTTON_Param_T_inc:
 			rysuja_y = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
-		case ID_BUTTON_Os_z_wlacz:
+		case ID_BUTTON_Param_T_dec:
 			rysuja_z = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
-			break;
-		case ID_BUTTON_Os_z_wylacz:
-			rysuja_z = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
-			break;
-		case ID_BUTTON_G_wlacz:
-			rysujg = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
-			break;
-		case ID_BUTTON_G_wylacz:
-			rysujg = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
