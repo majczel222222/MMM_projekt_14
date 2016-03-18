@@ -1,15 +1,8 @@
-﻿Build started 17.03.2016 00:26:07.
+﻿Build started 18.03.2016 01:03:46.
      1>Project "H:\Documents\Polibuda\Drugi rok\IV\Metody Modelowania Matematycznego (Wuch)\Projekt_MMM_Kozłowski_14\MMM_projekt_14\draw\draw.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          H:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\draw2.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt draw2.cpp
          draw2.cpp
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(88): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(89): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(90): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(91): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(111): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(117): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>h:\documents\polibuda\drugi rok\iv\metody modelowania matematycznego (wuch)\projekt_mmm_kozłowski_14\mmm_projekt_14\draw\draw2.cpp(123): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
        Link:
          H:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\Documents\Polibuda\Drugi rok\IV\Metody Modelowania Matematycznego (Wuch)\Projekt_MMM_Kozłowski_14\MMM_projekt_14\Debug\draw2.exe" /INCREMENTAL /NOLOGO gdiplus.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"H:\Documents\Polibuda\Drugi rok\IV\Metody Modelowania Matematycznego (Wuch)\Projekt_MMM_Kozłowski_14\MMM_projekt_14\Debug\draw2.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\Documents\Polibuda\Drugi rok\IV\Metody Modelowania Matematycznego (Wuch)\Projekt_MMM_Kozłowski_14\MMM_projekt_14\Debug\draw2.lib" /MACHINE:X86 Debug\draw2.res
          Debug\draw2.obj
@@ -19,4 +12,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.60
+Time Elapsed 00:00:00.61

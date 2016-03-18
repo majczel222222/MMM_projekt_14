@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <Windows.h>
+#include <math.h>
 
 #define MAX_LOADSTRING 100
 #define TMR_1 1
@@ -21,9 +22,9 @@ TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 INT value;
 INT skalay = 10;
 INT skalax = 3;
-int start_counter = 0, stop_counter = 0;
+int A = 0, a = 0, T = 0;
 
-bool rysuja_x = false, rysuja_y = false, rysuja_z = false, rysujg = false;
+bool paint_sin = false, paint_sqr = false, paint_trg = false;
 
 // buttons
 HWND hwndButton;
@@ -46,7 +47,7 @@ INT_PTR CALLBACK	Buttons(HWND, UINT, WPARAM, LPARAM);
 
 
 
-
+/*
 void inputData()
 {
 	std::ifstream source_file;
@@ -124,21 +125,9 @@ void inputData()
 
 	}
 
-	for (int i = 1; i < 2300; i++){
-		if (data_v_x[i] > data_v_x[i-1] + 0.2 || data_v_y[i] > data_v_y[i-1] + 0.2 || data_v_z[i] > data_v_z[i-1]+ 0.2)
-		{
-			start_counter++;
-		}
-		else
-		{
-			stop_counter++;
-		}		
-	}
-	start_counter = start_counter / 25;
-	stop_counter = stop_counter / 25;
 
 }
-
+*/
 
 
 wchar_t* int_to_wchar_t(int i, string dodatek)
@@ -159,7 +148,6 @@ void MyOnPaint(HDC hdc)
 	Pen pen_1(Color(255, 255, 0, 0), 1);
 	Pen pen_2(Color(255, 0, 255, 0), 1);
 	Pen pen_3(Color(255, 0, 0, 255), 1);
-	Pen pen_4(Color(255, 255, 0, 255), 1);
 
 	Font text(&FontFamily(L"Arial"), 20);
 	Font text3(&FontFamily(L"Arial"), 10);
@@ -167,15 +155,15 @@ void MyOnPaint(HDC hdc)
 	SolidBrush text2(Color(255, 0, 0, 255));
 
 	/*schemat rysowania osi
-	OX
+	OX (X1, Y1, X2, Y2)
 	OY
-	Grot na OYL
+	Grot na OYL 
 	Grot na OYR
 	Grot na OXL
 	Grot na OXR
 	*/
 
-	//rysowanie sygnału wejściowego
+	//rysowanie osi dla sygnału wejściowego
 
 	graphics.DrawLine(&pen, 20, 110, 840, 110);
 	graphics.DrawLine(&pen, 20, 30, 20, 190);
@@ -184,7 +172,7 @@ void MyOnPaint(HDC hdc)
 	graphics.DrawLine(&pen, 836, 106, 840, 110);
 	graphics.DrawLine(&pen, 840, 110, 836, 114);
 
-	//rysowanie uchybu 
+	//rysowanie osi dla uchybu 
 
 	graphics.DrawLine(&pen, 20, 300, 840, 300);
 	graphics.DrawLine(&pen, 20, 220, 20, 380);
@@ -193,7 +181,7 @@ void MyOnPaint(HDC hdc)
 	graphics.DrawLine(&pen, 836, 296, 840, 300);
 	graphics.DrawLine(&pen, 840, 300, 836, 304);
 
-	//rysowanie wyjścia
+	//rysowanie osi dla wyjścia
 
 	graphics.DrawLine(&pen, 20, 500, 840, 500);
 	graphics.DrawLine(&pen, 20, 420, 20, 580);
@@ -202,30 +190,55 @@ void MyOnPaint(HDC hdc)
 	graphics.DrawLine(&pen, 836, 496, 840, 500);
 	graphics.DrawLine(&pen, 840, 500, 836, 504);
 
-
+	
 	for (int i = 1; i < 2300; i++)
 	{
-
-		if (rysuja_x) graphics.DrawLine(&pen_1, 50 + ((i - 1) / skalax), 280 - data_x[i - 1] / skalay, 50 + (i / skalax), 280 - data_x[i] / skalay);
-		if (rysuja_y) graphics.DrawLine(&pen_2, 50 + ((i - 1) / skalax), 280 - data_y[i - 1] / skalay, 50 + (i / skalax), 280 - data_y[i] / skalay);
-		if (rysuja_z) graphics.DrawLine(&pen_3, 50 + ((i - 1) / skalax), 280 - data_z[i - 1] / skalay, 50 + (i / skalax), 280 - data_z[i] / skalay);
-		if (rysujg) graphics.DrawLine(&pen_4, 50 + ((i - 1) / skalax), 280 - data_g[i - 1] / skalay, 50 + (i / skalax), 280 - data_g[i] / skalay);
+		if (paint_sin) graphics.DrawLine(&pen_1, i, -(i ^ 11) + 110 * (i ^ 9) - 7920 * (i ^ 7) + 332640 * (i ^ 5) - 6652800 * (i ^ 3) + 39916800 * i, i, -((i + 1) ^ 11) + 110 * ((i + 1) ^ 9) - 7920 * ((i + 1) ^ 7) + 332640 * ((i + 1) ^ 5) - 6652800 * ((i + 1) ^ 3) + 39916800 * (i + 1));
+		
 	}
 
+   //rysowanie sygnału prostokatnego
+
+   if (paint_sqr) graphics.DrawLine(&pen_1, 20, 60, 220, 60);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 220, 60, 220, 160);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 220, 160, 420, 160);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 420, 160, 420, 60);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 420, 60, 620, 60);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 620, 60, 620, 160);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 620, 160, 820, 160);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 820, 160, 820, 60);
+   if (paint_sqr) graphics.DrawLine(&pen_1, 820, 60, 840, 60);
+
+   //rysowanie sygnały trójkątnego
+
+   if (paint_trg) graphics.DrawLine(&pen_1, 20, 160, 120, 60);
+   if (paint_trg) graphics.DrawLine(&pen_1, 120, 60, 220, 160);
+   if (paint_trg) graphics.DrawLine(&pen_1, 220, 160, 320, 60);
+   if (paint_trg) graphics.DrawLine(&pen_1, 320, 60, 420, 160);
+   if (paint_trg) graphics.DrawLine(&pen_1, 420, 160, 520, 60);
+   if (paint_trg) graphics.DrawLine(&pen_1, 520, 60, 620, 160);
+   if (paint_trg) graphics.DrawLine(&pen_1, 620, 160, 720, 60);
+   if (paint_trg) graphics.DrawLine(&pen_1, 720, 60, 820, 160);
+   if (paint_trg) graphics.DrawLine(&pen_1, 820, 160, 840, 140);
 
 	graphics.DrawString(L"Sygnał wejściowy: ", -1, &text, PointF(900, 80), &text2);
 
-	graphics.DrawString(L"A= ", -1, &text, PointF(900, 180), &text2);
+	graphics.DrawString(L"A = ", -1, &text, PointF(900, 180), &text2);
+	graphics.DrawString(int_to_wchar_t(A, " "), -1, &text, PointF(950, 180), &text2);
 
-	graphics.DrawString(L"a= ", -1, &text, PointF(900, 280), &text2);
+	graphics.DrawString(L"a = ", -1, &text, PointF(900, 280), &text2);
+	graphics.DrawString(int_to_wchar_t(a, " "), -1, &text, PointF(950, 280), &text2);
 
-	graphics.DrawString(L"T= ", -1, &text, PointF(900, 380), &text2);
+	graphics.DrawString(L"T = ", -1, &text, PointF(900, 380), &text2);
+	graphics.DrawString(int_to_wchar_t(T, " "), -1, &text, PointF(950, 380), &text2);
 
 	graphics.DrawString(L"Sygnał wejściowy: ", -1, &text, PointF(20, 0), &text2);
 
 	graphics.DrawString(L"Uchyb: ", -1, &text, PointF(20, 190), &text2);
 
 	graphics.DrawString(L"Sygnał wyjściowy: ", -1, &text, PointF(20, 385), &text2);
+
+
 
 
 
@@ -246,7 +259,7 @@ void repaintWindow(HWND hWnd, HDC &hdc, PAINTSTRUCT &ps, RECT *drawArea)
 int OnCreate(HWND window)
 {
 	SetTimer(window, TMR_1, 25, 0);
-	inputData();
+	//inputData();
 	return 0;
 }
 
@@ -358,14 +371,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hwndButton = CreateWindow(TEXT("button"), TEXT("Prostokat"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 80, 70, 40, hWnd, (HMENU)ID_BUTTON_in_sqr, hInstance, NULL);
 	hwndButton = CreateWindow(TEXT("button"), TEXT("Trojkat"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 1170, 120, 70, 40, hWnd, (HMENU)ID_BUTTON_in_trg, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 160, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_A_inc, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 200, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_A_dec, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 980, 160, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_A_inc, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 980, 200, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_A_dec, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 260, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_a_inc, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 300, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_a_dec, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 980, 260, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_a_inc, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 980, 300, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_a_dec, hInstance, NULL);
 
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 360, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_T_inc, hInstance, NULL);
-	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 970, 400, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_T_dec, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zwieksz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 980, 360, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_T_inc, hInstance, NULL);
+	hwndButton = CreateWindow(TEXT("button"), TEXT("Zmniejsz"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 980, 400, 70, 40, hWnd, (HMENU)ID_BUTTON_Param_T_dec, hInstance, NULL);
 
 	OnCreate(hWnd);
 
@@ -413,31 +426,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			DestroyWindow(hWnd);
 			break;
 		case ID_BUTTON_in_sin:
-			if (skalax >= 2) skalax--; else skalax = 1; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			paint_sin = true, paint_sqr = false, paint_trg = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_in_sqr:
-			skalax++; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			paint_sin = false, paint_sqr = true, paint_trg = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_in_trg:
-			if (skalay >= 2) skalay--; else skalay = 1;  repaintWindow(hWnd, hdc, ps, &drawArea1);
+			paint_sin = false, paint_sqr = false, paint_trg = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_Param_A_inc:
-			skalay++; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			A++; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_Param_A_dec:
-			rysuja_x = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			if (A <= 0) MessageBox(NULL, L"Nie mozna wprowadzic ujemnego parametru", L"ERR", MB_ICONEXCLAMATION);
+			else A--; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_Param_a_inc:
-			rysuja_x = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			a++; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_Param_a_dec:
-			rysuja_y = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			if (a <= 0) MessageBox(NULL, L"Nie mozna wprowadzic ujemnego parametru", L"ERR", MB_ICONEXCLAMATION);
+			else a--; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_Param_T_inc:
-			rysuja_y = false; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			T++; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		case ID_BUTTON_Param_T_dec:
-			rysuja_z = true; repaintWindow(hWnd, hdc, ps, &drawArea1);
+			if (T <= 0) MessageBox(NULL, L"Nie mozna wprowadzic ujemnego parametru", L"ERR", MB_ICONEXCLAMATION);
+			else T--; repaintWindow(hWnd, hdc, ps, &drawArea1);
 			break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
